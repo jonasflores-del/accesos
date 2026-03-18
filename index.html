@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Control de Acceso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .card {
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .ok {
+      color: #00ff88;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .bad {
+      color: red;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .nombre {
+      font-size: 22px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .puesto {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .id {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .cargando {
+      font-size: 18px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <div id="resultado" class="cargando">Verificando acceso...</div>
+</div>
+
+<script>
+const usuarios = {
+  "STAFF001": { nombre: "Jonas Flores Mahla", puesto: "Auxiliar de iluminación", estado: "activo" },
+  "STAFF002": { nombre: "Josué Flores Mahla", puesto: "Ingeniero de iluminación", estado: "activo" },
+  "STAFF003": { nombre: "Luis Pérez Herrera", puesto: "Ingeniero de video", estado: "activo" },
+  "STAFF004": { nombre: "Armando Barrera Salas", puesto: "Audio", estado: "activo" },
+  "STAFF005": { nombre: "Guillermo Andrés Barra", puesto: "Ingeniero de Audio", estado: "activo" },
+  "STAFF006": { nombre: "Leandro Salazar Freigman", puesto: "Ingeniero de Video", estado: "activo" }
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+const resultado = document.getElementById("resultado");
+
+setTimeout(() => {
+  if (usuarios[id]) {
+    if (usuarios[id].estado === "activo") {
+      resultado.innerHTML = `
+        <div class="ok">✅ ACCESO APROBADO</div>
+        <div class="nombre">${usuarios[id].nombre}</div>
+        <div class="puesto">${usuarios[id].puesto}</div>
+        <div class="id">${id}</div>
+      `;
+    } else {
+      resultado.innerHTML = `<div class="bad">❌ YA UTILIZADO</div>`;
+    }
+  } else {
+    resultado.innerHTML = `<div class="bad">❌ ACCESO DENEGADO</div>`;
+  }
+}, 800);
+</script>
+
+</body>
+</html>
