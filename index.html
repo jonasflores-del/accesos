@@ -109,19 +109,12 @@ const resultado = document.getElementById("resultado");
 const card = document.getElementById("card");
 
 // 💾 BLOQUEO LOCAL (anti doble escaneo básico)
-let usados = JSON.parse(localStorage.getItem("usados") || "[]");
 
 setTimeout(() => {
 
 if (usuarios[id]) {
 
-  if (usados.includes(id)) {
-    resultado.innerHTML = `<div class="estado bad">❌ YA REGISTRADO</div>`;
-    document.body.style.background = "#300";
-    beepBAD();
-  }
-
-  else {
+  
     resultado.innerHTML = `
       <div class="estado ok anim">✅ ACCESO APROBADO</div>
       <div class="nombre">${usuarios[id].nombre}</div>
